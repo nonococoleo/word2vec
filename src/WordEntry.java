@@ -19,5 +19,4 @@ public class WordEntry implements Comparable<WordEntry> {
         else
             return -1;
     }
-
 }

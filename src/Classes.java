@@ -47,11 +47,9 @@ public class Classes {
     public List<Map.Entry<String, Double>> getTop(int n) {
         List<Map.Entry<String, Double>> arrayList =
                 new ArrayList<Map.Entry<String, Double>>(values.entrySet());
-        Collections.sort(arrayList,
-                new Comparator<Map.Entry<String, Double>>() {
+        Collections.sort(arrayList, new Comparator<Map.Entry<String, Double>>() {
             @Override
             public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-                // TODO Auto-generated method stub
                 return o1.getValue() > o2.getValue() ? 1 : -1;
             }
         });

@@ -7,30 +7,30 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.swing.JFrame;
+import Jama.Matrix;
+import java.math.BigDecimal;
 
 
 public class Word2VEC {
-    public static void main(String[] args) throws IOException {
-        Word2VEC vec = new Word2VEC();
-        vec.loadJavaModel("vec");
-
-//        System.out.println(vec.analogy("run", "running", "play"));
-//        System.out.println(vec.analogy("man", "woman", "king"));
-//        System.out.println(vec.analogy("father", "son", "mother"));
-//        System.out.println(vec.analogy("france", "paris", "germany"));
-//
-        DataInputStream in = new DataInputStream(new BufferedInputStream(System.in));
-        String temp = null;
-        temp = readString(in);
-        for (WordEntry word : vec.distance(temp))
-            System.out.println(word);
-    }
-
     private HashMap<String, float[]> wordMap = new HashMap<String, float[]>();
     private int words;
     private int size;
     private int topNSize = 101;
     private static final int MAX_SIZE = 50;
+
+    public static void main(String[] args) throws IOException {
+        Word2VEC vec = new Word2VEC();
+        vec.loadJavaModel("vec");
+        System.out.println("load model ok!");
+        vec.window();
+    }
+
+    public void window() {
+        WindowActionEvent win = new WindowActionEvent();
+        win.setMyCommandListener(this);
+        win.setBounds(100, 100, 460, 620);
+    }
 
     public void loadGoogleModel(String path) throws IOException {
         DataInputStream dis = null;
@@ -214,6 +214,55 @@ public class Word2VEC {
         }
         sb.append(new String(bytes, 0, i + 1));
         return sb.toString();
+    }
+
+    public String[] getWordlist(String word, int SIZE) {
+        String[] wordlist = new String[SIZE];
+        wordlist[0] = word;
+        int i = 1;
+        for (WordEntry wordentry : this.distance(word)) {
+            wordlist[i] = wordentry.name;
+            i++;
+            if (i >= SIZE)
+                break;
+        }
+        return wordlist;
+    }
+
+    public Matrix get2dMat(String[] wordlist) {
+        int SIZE = wordlist.length;
+        float[][] veclist1 = new float[SIZE][200];
+        double[][] veclist2 = new double[SIZE][200];
+        int i = 0;
+        for (String s : wordlist) {
+            veclist1[i] = this.getWordVector(s);
+            i++;
+        }
+        for (i = 0; i < veclist1.length; i++)
+            for (int j = 0; j < 200; j++) {
+                BigDecimal b = new BigDecimal(String.valueOf(veclist1[i][j]));
+                veclist2[i][j] = b.doubleValue();
+            }
+        PCA test = new PCA();
+        Matrix C = test.analyse(veclist2);
+        return C;
+    }
+
+    public void Show2D(String keyword) {
+        JFrame jf = new JFrame();
+        jf.setSize(1200, 900);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(2);
+        String[] wordlist = new String[50];
+        wordlist = this.getWordlist(keyword, 50);
+        display D = new display(wordlist, this.get2dMat(wordlist));
+        jf.getContentPane().add(D);
+    }
+
+    public Classes[] keymeans(int clcn, int iter) {
+        WordKmeans wordKmeans = new WordKmeans(this.getWordMap(), clcn, iter);
+        Classes[] explain = wordKmeans.explain();
+        return explain;
     }
 
     public int getTopNSize() {

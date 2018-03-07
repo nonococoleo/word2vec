@@ -33,17 +33,17 @@ public class MapCount<T> {
         return this.hm;
     }
 
-    public String getDic() {
-        Iterator iterator = this.hm.entrySet().iterator();
-        StringBuilder sb = new StringBuilder();
-        Entry next = null;
-        while (iterator.hasNext()) {
-            next = (Entry) iterator.next();
-            sb.append(next.getKey());
-            sb.append("\t");
-            sb.append(next.getValue());
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
+//    public String getDic() {
+//        Iterator iterator = this.hm.entrySet().iterator();
+//        StringBuilder sb = new StringBuilder();
+//        Entry next = null;
+//        while (iterator.hasNext()) {
+//            next = (Entry) iterator.next();
+//            sb.append(next.getKey());
+//            sb.append("\t");
+//            sb.append(next.getValue());
+//            sb.append("\n");
+//        }
+//        return sb.toString();
+//    }
 }

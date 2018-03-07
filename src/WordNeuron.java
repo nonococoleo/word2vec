@@ -6,7 +6,7 @@ import java.util.Random;
 public class WordNeuron extends Neuron {
     public String name;
     public double[] syn0 = null; // 词向量
-    public List<Neuron> neurons = null;// 路径神经元
+    public List<Neuron> neurons = null;// 节点路径
     public int[] codeArr = null; //哈夫曼编码
 
     public WordNeuron(String name, double freq, int layerSize) {
@@ -18,13 +18,13 @@ public class WordNeuron extends Neuron {
             syn0[i] = (random.nextDouble() - 0.5) / layerSize;
     }
 
-    public List<Neuron> makeNeurons() {//生成神经网络
+    public List<Neuron> makeNeurons() {//生成节点哈夫曼编码
         if (neurons != null)
             return neurons;
 
         Neuron neuron = this;
         neurons = new LinkedList<>();
-        while ((neuron = neuron.parent) != null) //组成哈夫曼路径神经元
+        while ((neuron = neuron.parent) != null) //组成哈夫曼路径节点
             neurons.add(neuron);
         Collections.reverse(neurons);
 

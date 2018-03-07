@@ -5,19 +5,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 public class WordKmeans {
-    public static void main(String[] args) throws IOException {
-        Word2VEC vec = new Word2VEC();
-        vec.loadJavaModel("newvector.bin");
-        System.out.println("load model ok!");
-        WordKmeans wordKmeans = new WordKmeans(vec.getWordMap(), 50, 50);
-        Classes[] explain = wordKmeans.explain();
-
-        for (int i = 0; i < explain.length; i++) {
-            System.out.println("--------" + i + "---------");
-            System.out.println(explain[i].getTop(10));
-        }
-    }
-
     private HashMap<String, float[]> wordMap = null;
     private int iter;
     private Classes[] cArray = null;
@@ -29,13 +16,11 @@ public class WordKmeans {
     }
 
     public Classes[] explain() {
-        String[] words=wordMap.keySet().toArray(new String[0]);
-        Random random=new Random();
+        String[] words = wordMap.keySet().toArray(new String[0]);
+        Random random = new Random();
         for (int i = 0; i < cArray.length; i++) {
-//            Entry<String, float[]> next = iterator.next();
             String randomKey = words[random.nextInt(words.length)];
             cArray[i] = new Classes(i, wordMap.get(randomKey));
-            System.out.println(randomKey);
         }
 
         Iterator<Entry<String, float[]>> iterator = wordMap.entrySet().iterator();

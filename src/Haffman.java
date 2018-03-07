@@ -4,12 +4,11 @@ import java.util.TreeSet;
 
 public class Haffman {
     private int layerSize;//向量维度
+    private TreeSet<Neuron> set = new TreeSet<>();
 
     public Haffman(int layerSize) {//构造函数
         this.layerSize = layerSize;
     }
-
-    private TreeSet<Neuron> set = new TreeSet<>();
 
     public void make(Collection<Neuron> neurons) {//建立哈弗曼树
         set.addAll(neurons);
