@@ -4,3 +4,5 @@ vec
 vectors.bin
 null/*
 out/*
+.idea
+word2vec.iml
