@@ -1,5 +1,6 @@
-import java.util.Date;
 import Jama.Matrix;
+
+import java.util.Date;
 
 public class PCA {
 	public double[][] Standardlizer(double[][] x){
@@ -27,7 +28,7 @@ public class PCA {
 		//获得标准化的矩阵
 		for(int i=0;i<n;i++){
 			for(int j=0;j<p;j++){
-				result[i][j]=(double) ((x[i][j]-average[j])/Math.sqrt(var[j]));
+				result[i][j] = (x[i][j] - average[j]) / Math.sqrt(var[j]);
 			}
 		}
 		return result;

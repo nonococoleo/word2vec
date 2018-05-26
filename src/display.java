@@ -1,20 +1,15 @@
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.io.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import Jama.Matrix;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class display extends JPanel {
     public String[] wordlist;//需要显示的单词表
     public Matrix C;		 //PCA降维后的矩阵
 
-    Polygon po = new Polygon();//直角坐标系
     Font fn = new Font("Bradley Hand", Font.BOLD, 22);
     Font fn2 = new Font("Bradley Hand", Font.BOLD, 20);
-    int x = 100;
-    int y = 100;
+
     int[] pox = {590, 600, 600};
     int[] poy = {40, 20, 30};
     int[] poxx = {610, 600, 600};
